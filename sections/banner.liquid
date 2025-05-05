@@ -1,0 +1,113 @@
+<section class="banner_sec">
+  <div class="container">
+    <div class="wrap">
+      <div class="banner_bl">
+        <div class="banner_slide" id="slide1">
+          <p>{{ section.settings.text }}</p>
+        </div>
+        <div class="banner_slide" id="slide2">
+        <p>{{ section.settings.text2 }}</p>
+        </div>
+        <div class="banner_slide" id="slide3">
+          <p>{{ section.settings.text3 }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .banner_sec {
+    min-height: 62px;
+    position: relative;
+    background: {{ section.settings.background}};
+    color: {{ section.settings.text_color }};
+  }
+
+  .banner_slide {
+    position: absolute;
+    top: 50%;
+    left: -150%;
+    transform: translate(0, -50%);
+    color: black;
+    padding: 0 20px;
+    font-size: 1.1rem;
+    transition: left 0.5s ease-in-out;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const slide1 = document.getElementById('slide1');
+    const slide2 = document.getElementById('slide2');
+    const slide3 = document.getElementById('slide3');
+
+    const slides = [slide1, slide2, slide3];
+    let currentIndex = 0;
+
+    function slideToMiddle(element) {
+      element.style.left = '40%';
+    }
+
+    function resetPosition(element) {
+      element.style.left = '-100%';
+    }
+
+    function slideText() {
+      resetPosition(slides[currentIndex]);
+      currentIndex = (currentIndex + 1) % slides.length;
+      slideToMiddle(slides[currentIndex]);
+    }
+
+    slideToMiddle(slides[currentIndex]);
+
+    setInterval(slideText, 3000);
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Banner",
+  "class": "banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "Members: Free Shipping!"
+    },
+    {
+      "type": "text",
+      "id": "text2",
+      "label": "Text",
+      "default": "Save up to 30%"
+    },
+    {
+      "type": "text",
+      "id": "text3",
+      "label": "Text",
+      "default": "Get your gear faster"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#F4F4F4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "banner"
+    }
+  ],
+  "disabled_on": {
+    "templates": ["404"]
+  }
+}
+{% endschema %}

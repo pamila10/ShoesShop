@@ -1,0 +1,79 @@
+<section class="allProducts_sec">
+  <div class="container">
+    <div class="wrap">
+      <h2>{{ collections['air-force'].title }}</h2>
+      <div class="allProducts_container">
+        <div class="allProducts_wrapper">
+          {% for product in collections['air-force'].products %}
+            <div class="productCard">
+              <a href="{{product.url}}">
+                <img
+                  width="300"
+                  height="300"
+                  loading="lazy"
+                  src="{{ product.featured_image | image_url }}"
+                >
+                <h3>{{ product.title }}</h3>
+                <p class="productCard_price">
+                  <span>{{ product.price | money }}</span>
+                  <span>{{shop.currency}}</span>
+                </p>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .allProducts {
+    background: {{ section.settings.background }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .allProducts .wrap {
+    padding: 10px 0;
+  }
+
+  .allProducts_wrapper {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  .allProducts_container {
+    position: relative;
+    overflow-x: auto;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "All products",
+  "class": "allProducts",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#F4F4F4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "all-products"
+    }
+  ],
+  "disabled_on": {
+    "templates": ["404"]
+  }
+}
+{% endschema %}

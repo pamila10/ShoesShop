@@ -1,0 +1,13 @@
+[
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "main_font",
+        "label": "Main font",
+        "default": "sans-serif"
+      }
+    ]
+  }
+]

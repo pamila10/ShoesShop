@@ -1,0 +1,105 @@
+<section class="collection_sec">
+  {% paginate collection.products by 9 %}
+      <div class="container">
+        <div class="wrap">
+          {% render 'sort' %}
+          <div>
+            <h3 class="h3">Collections</h3>
+            <span class="title">{{ collection.title }}</span>
+            <div class="productsGrid">
+              {% for product in collection.products %}
+                <div class="productCard">
+                  <a href="{{product.url}}">
+                    <img
+                      width="300"
+                      height="300"
+                      loading="lazy"
+                      src="{{ product.featured_image | image_url }}"
+                    >
+                    <span class="title">{{ product.title }}</span>
+                    <p class="productCard_price">
+                      <span>{{ product.price | money }}</span>
+                      <span>{{shop.currency}}</span>
+                    </p>
+                  </a>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="pagination">
+      {{ paginate | default_pagination }}
+    </div>
+  {% endpaginate %}
+</section>
+
+<style>
+  .collection_sec {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    background: {{ section.settings.background }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .collection_sec .wrap {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+</style>
+
+<script>
+  Shopify.queryParams = {};
+
+  if (location.search.length) {
+    var params = location.search.substr(1).split('&');
+
+    for (var i = 0; i < params.length; i++) {
+      var keyValue = params[i].split('=');
+
+      if (keyValue.length) {
+        Shopify.queryParams[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
+      }
+    }
+  }
+
+  document.querySelector('#sort-by').addEventListener('change', function (e) {
+    var value = e.target.value;
+
+    Shopify.queryParams.sort_by = value;
+    location.search = new URLSearchParams(Shopify.queryParams).toString();
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Collection",
+  "class": "collection",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#F4F4F4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "collection"
+    }
+  ],
+  "disabled_on": {
+    "templates": ["404"]
+  }
+}
+{% endschema %}

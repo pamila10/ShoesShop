@@ -1,0 +1,238 @@
+{% assign currentProductId = product.selected_or_first_available_variant.id %}
+<section class="product_sec">
+  <div class="container">
+    <div class="wrap">
+      <div class="product_bl">
+
+        <div class="slider">
+          <div class="slider_bl">
+          {%- for image in product.images -%}
+            <img
+              width="600"
+              height="600"
+              loading="lazy"
+              src="{{ image | image_url}}"
+              class="img"
+            >
+          {%- endfor -%}
+          </div>
+
+          {%- if product.images.size > 1 -%}
+            <button class="prevButton" aria-label="Prew">&lt;</button>
+            <button class="nextButton" aria-label="Next">&gt;</button>
+          {%- endif -%}
+        </div>
+
+        <div class="card_textBl">
+          <span class="title">{{ product.title }}</span>
+          <div class="card_badge">
+            {%- if product.available == false -%}
+              <div class="card_badgeIcon card_badgeIcon___soldOut">
+                <span>Sold out</span>
+              </div> 
+              {%- else -%}
+              <div class="card_badgeIcon card_badgeIcon___onSale">
+                <span>On Sale</span>
+              </div>
+            {%- endif -%}
+          </div>
+          <p>
+            <span>{{ product.price | money }}</span>
+            <span>{{shop.currency}}</span>
+          </p>
+          {% if product.description %}
+            <span class="card_descr">{{ product.description }}</span>
+          {% endif %}
+          {% if product.variants.size > 1 %}
+            <span class="subtitle">Select Size</span>
+            {% form 'product', product %}
+              <div class="selectBl">
+                <select class="select selectSize" name="id">
+                  {% for variant in product.variants %}
+                    <option value="{{variant.id}}">
+                      {{ variant.title }}
+                    </option>
+                  {% endfor %}
+                </select>
+                <span class="icon ChevronDownIcon">{{ 'ChevronDownIcon.svg' | inline_asset_content }}</span>
+              </div>
+            {% endform %}
+          {% endif %}
+            <button type="submit" id="addToCartBtn" class="buttonMain"
+              onclick="addToCart({{currentProductId}}, 1)"
+              {% if product.available == false %} disabled {% endif %}
+              {% comment %} {% if product.selected_or_first_available_variant.available == false %} disabled {% endif %} {% endcomment %}
+            >Add to Cart {{product.selected_or_first_available_variant.quantity}}</button>
+        </div>
+      </div>
+
+      {% render 'product-recommendations' %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .product_sec {
+    background: {{ section.settings.background }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .product_sec .productRecommend {
+    margin-bottom: 20px;
+  }
+
+  .product_bl {
+    display: flex;
+    margin: 10px 0;
+
+    @media only screen and (max-width: 576px) {
+      flex-direction: column;
+    }
+  }
+
+  .product_bl .slider {
+    @media only screen and (max-width: 576px) {
+      margin: 0  auto;
+    }
+  }
+
+  .card_imgBl {
+    width: 300px;
+    height: 300px;
+    margin-right: 10px;
+  }
+
+  .card_textBl {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-left: 10px;
+  }
+</style>
+
+<script>
+  const addToCartBtn = document.querySelector('#addToCartBtn')
+  const selectSize = document.querySelector('.selectSize')
+
+  if(selectSize) {
+    selectSize.addEventListener('change', (event) => {
+      return currentProductId = event.target.value
+    })
+  }
+
+  async function addToCart(variant_id, quantity) {
+    try {
+      const addToCartRequest = await fetch(window.Shopify.routes.root + 'cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          'items': [{
+            'id': variant_id,
+            'quantity': quantity
+          }]
+        })
+      })
+      const addToCart = await addToCartRequest.json()
+      if(addToCartRequest.status === 200) {
+        const result = await getCart()
+      } else {
+        console.log(addToCart)
+        if(addToCartBtn && !document.querySelector('.errorMsg')) {
+          let errorMsg = document.createElement('span')
+          errorMsg.classList.add('errorMsg')
+          errorMsg.innerHTML = addToCart.message
+          addToCartBtn.before(errorMsg) 
+        }
+      } 
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
+  async function getCart() {
+    try {
+      const cartRequest = await fetch(window.Shopify.routes.root + 'cart.js')
+      const cart = await cartRequest.json()
+      const cartNum = document.querySelector('.cartNum')
+      cartNum.textContent = `${cart.item_count}`
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
+  // slider
+  const slider = document.querySelector('.slider_bl')
+  const prevButton = document.querySelector('.prevButton')
+  const nextButton = document.querySelector('.nextButton')
+  const slides = Array.from(slider.querySelectorAll('img'))
+  const slideCount = slides.length
+  let slideIndex = 0
+
+  if(prevButton && nextButton) {
+    prevButton.addEventListener('click', showPreviousSlide)
+    nextButton.addEventListener('click', showNextSlide)
+  }
+
+  function showPreviousSlide() {
+    slideIndex = (slideIndex - 1 + slideCount) % slideCount
+    updateSlider()
+  }
+
+  function showNextSlide() {
+    slideIndex = (slideIndex + 1) % slideCount
+    updateSlider()
+  }
+
+  function updateSlider() {
+    slides.forEach((slide, index) => {
+      if (index === slideIndex) {
+        slide.style.display = 'block'
+      } else {
+        slide.style.display = 'none'
+      }
+    })
+  }
+
+  updateSlider()
+</script>
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#F4F4F4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "label": "Vertical alignment",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "product-main"
+    }
+  ],
+  "disabled_on": {
+    "templates": ["404"]
+  }
+}
+{% endschema %}

@@ -1,0 +1,46 @@
+<section class="notFound_sec">
+  <div class="container">
+    <div class="wrap">
+      <div class="notFound_bl">
+        <h3>
+          404
+        </h3>
+        <h2 class="title">
+          Page not found
+        </h2>
+        <a href="/" class="link">
+          Continue shopping
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .notFound_sec {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  .notFound_bl {
+    text-align: center;
+  }
+
+  .notFound .link {
+    text-decoration: underline;
+  }
+
+  .notFound h1 {
+    font-size: 100px;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "404 page",
+  "class": "notFound",
+  "settings": [],
+  "presets": []
+}
+{% endschema %}

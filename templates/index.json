@@ -1,0 +1,57 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "banner",
+      "settings": {
+        "text": "Members: Free Shipping!",
+        "text2": "Save up to 30%",
+        "text3": "Get your gear faster!",
+        "background": "#F4F4F4",
+        "text_color": "#000000"
+      }
+    },
+    "media-info": {
+      "type": "media-info",
+      "settings": {}
+    },
+    "more-info": {
+      "type": "more-info",
+      "settings": {
+        "background": "#F4F4F4",
+        "text_color": "#000000",
+        "title": "The resolution starter pack",
+        "text": "Go for all your fitness goals with a curated collection of new kicks breathable apparel, and more supportive styles"
+      }
+    },
+    "all-collections": {
+      "type": "all-collections",
+      "settings": {
+        "background": "#F4F4F4",
+        "text_color": "#000000"
+      }
+    },
+    "all-products": {
+      "type": "all-products",
+      "settings": {
+        "background": "#F4F4F4",
+        "text_color": "#000000"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "media-info",
+    "more-info",
+    "all-collections",
+    "all-products"
+  ]
+}

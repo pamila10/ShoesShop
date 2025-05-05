@@ -1,0 +1,75 @@
+<section class="featuredCollections_sec">
+  <div class="container">
+    <div class="wrap">
+      <h2>Featured Collections</h2>
+      <div class="featuredCollections_container">
+        <div class="featuredCollections_wrapper">
+          {% for product in collections %}
+            <div class="productCard">
+              <a href="{{product.url}}">
+                <img
+                  width="300"
+                  height="300"
+                  loading="lazy"
+                  src="{{ product.featured_image | image_url }}"
+                >
+                <h3>{{ product.title }}</h3>
+                <p class="productCard_price">
+                  <span>{{ product.price | money }}</span>
+                  <span>{{shop.currency}}</span>
+                </p>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .featuredCollections_sec {
+    background: {{ section.settings.background }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .featuredCollections_container {
+    position: relative;
+    overflow-x: auto;
+  }
+
+  .featuredCollections_wrapper {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.3s ease;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "All collections",
+  "class": "featuredCollections",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#F4F4F4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "all-collections"
+    }
+  ],
+  "disabled_on": {
+    "templates": ["404"]
+  }
+}
+{% endschema %}

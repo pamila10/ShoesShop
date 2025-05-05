@@ -1,0 +1,169 @@
+{% form 'cart', cart %}
+    {% if cart.empty? %}
+      <section class="cart_sec">
+        <div class="container">
+          <div class="wrap">
+            <div class="cart_empty">
+              <p>Cart is empty</p>
+            <div>
+          </div>
+        </div>
+      </section>
+      
+    {% else %}
+      <section class="cart_sec cart_sec___withItems">
+        <div class="container">
+          <div class="wrap">
+            {% for product in cart.items %}
+              <div class="cart_item">
+                <div class="cart_itemBl">
+                  <a href="{{product.url}}">
+                    <img
+                      width="300"
+                      height="300"
+                      loading="lazy"
+                      src="{{ product.image | image_url }}">
+                    <h3 class="subtitle">{{ product.title | link_to: product.url }}</h3>
+                  </a>
+                </div>
+                <p>{{ product.final_line_price | money }}</p>
+                <div class="cart_itemBl">
+                  <input class="cart_itemNum" 
+                    name="updates[]" 
+                    value="{{product.quantity }}" 
+                    type="number"
+                    min="1" max="99">
+                  <a href="{{ product.url_to_remove }}">
+                    {{ 'DeleteIcon.svg' | inline_asset_content }}
+                  </a>
+                </div>
+                <p>Total: {{ cart.total_price | money }}</p>
+              </div>
+            {% endfor %}
+
+            <button class="buttonMain" type="submit" name="update">Update</button>
+            <button class="buttonMain" type="submit" name="checkout">Checkout</button>
+          </div>
+        </div>
+      </section>
+    {% endif %}
+  </section>
+{% endform %}
+
+<style>
+  .cart {
+    height: 100%;
+  }
+
+  .cart form {
+    height: 100%;
+  }
+
+  .cart_sec {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .cart_sec .wrap {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cart_sec___withItems {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .cart_sec___withItems .wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px 0;
+  }
+
+  .cart_sec___withItems .buttonMain {
+    align-self: flex-end;
+  }
+
+  .cart_sec___withItems .buttonMain:last-child {
+    margin-bottom: 10px;
+  }
+
+  .cart_empty {
+    display: flex;
+    text-transform: uppercase;
+    align-items: center;
+    font-size: 1.2rem;
+  }
+
+  .cart_item {
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px
+  }
+
+  .cart_itemBl {
+    display: flex;
+    align-items: center;
+    gap: 5px
+  }
+
+  .cart_itemBl svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .cart_itemBl .subtitle {
+    width: 200px;
+    margin: 0;
+  }
+
+  .cart_itemBl a {
+    color: inherit;
+    word-wrap: break-word;
+    line-height: 0;
+  }
+
+  .cart_itemNum {
+    max-width: 42px;
+  }
+
+  .cart_item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Cart",
+  "class": "cart",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#F4F4F4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "cart"
+    }
+  ],
+  "disabled_on": {
+    "templates": ["404"]
+  }
+}
+{% endschema %}

@@ -1,0 +1,100 @@
+<header class="header_sec">
+  <div class="container">
+    <div class="wrap">
+      <div class="nav">
+        {% render 'nav' %}
+        <div class="nav_searchBl">
+          <form class="searchForm" action="/search">
+            <input class="input searchForm_field" 
+              placeholder="Search" 
+              type="text" 
+              name="q"
+              value="{{ search.terms | escape }}"
+            >
+            <button type="submit" class="searchForm_btn btnIcon" aria-label="Search" value="Search">
+              <span class="searchIcon">{{ 'SearchIcon.svg' | inline_asset_content }}</span>
+            </button>
+          </form>
+          <a class="cartIcon" href="/cart">
+            <span class="cartIcon_icon">{{ 'CartFilledIcon.svg' | inline_asset_content }}</span>
+            <p class="cartIcon_numBl">
+              <span class="cartIcon_num cartNum">{{ cart.item_count }}</span>
+            </p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .nav_searchBl {
+    display: flex;
+    flex-grow: 1;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 5px 0
+  }
+
+  .searchForm {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .searchForm_field {
+    width: 100%;
+    border: none;
+  }
+
+  .searchForm_btn {
+    position: absolute;
+    top: calc(50% - 12.5px);
+    right: 7px;
+  }
+
+  .cartIcon {
+    position: relative;
+    margin-right: 5px;
+  }
+
+  .cartIcon_icon {
+    display: inline-flex;
+    width: 30px;
+  }
+
+  .cartIcon_numBl {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    right: -5px;
+    top: -5px;
+    margin: 0;
+    background-color: #e8e8e8;
+    border-radius: 50%;
+    color: black;
+  }
+
+  .cartIcon_num {
+    font-size: 0.8rem;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "header",
+  "settings": [],
+  "presets": []
+}
+{% endschema %}

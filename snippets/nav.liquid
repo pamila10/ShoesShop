@@ -1,0 +1,114 @@
+<div class="nav_listWrap">
+  <button class="btnIcon nav_menuIcon" onclick="openNav()">
+    {{ 'MenuIcon.svg' | inline_asset_content }}
+  </button>
+  <ul class="nav_list">
+    <button class="btnIcon nav_closeMenuIcon" onclick="closeNav()">
+      {{ 'XIcon.svg' | inline_asset_content }}
+    </button>
+    {% for link in linklists['main-menu'].links %}
+      <li>{{link.title | link_to: link.url}}</li>
+    {% endfor %}
+  </ul>
+</div>
+
+<style>
+  .nav_listWrap {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+  }
+
+  .nav_menuIcon {
+    width: 25px;
+    height: 25px;
+    display: none;
+
+    @media only screen and (max-width: 768px) {
+      display: inline-block;
+    }
+  }
+
+  .nav_closeMenuIcon {
+    display: none;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: white;
+    border-radius: 50%;
+
+    @media only screen and (max-width: 768px) {
+      display: inline-block;
+    }
+  }
+
+  .nav_closeMenuIcon:hover {
+    background-color: rgb(207 207 207);
+  }
+  
+  .nav_list {
+    display: flex;
+    font-size: 1.1rem;
+    padding: 3px 0;
+    position: relative;
+    gap: 10px;
+
+    @media only screen and (max-width: 768px) {
+      flex-direction: column;
+      visibility: hidden;
+      position: fixed;
+      width: 300px;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      color: white;
+    }
+
+    li {
+      list-style-type: none;
+    }
+
+    a {
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1rem;
+      color: inherit;
+    }
+
+    a:hover {
+      color: rgb(60, 60, 60);
+
+      @media only screen and (max-width: 768px) {
+        color: rgb(207 207 207);
+      }
+    }
+  }
+
+  .nav_list.open {
+    @media only screen and (max-width: 768px) {
+      visibility: visible;
+      margin: 0;
+      padding: 15px 10px;
+    }
+  }
+</style>
+
+<script>
+  function openNav() {
+    let navList = document.querySelector(".nav_list");
+    if (navList.className === "nav_list") {
+      navList.className += " open";
+    }
+  }
+
+  function closeNav() {
+    let navList = document.querySelector(".nav_list");
+    if (navList.className === "nav_list open") {
+      navList.className = "nav_list";
+    }
+  }
+</script>

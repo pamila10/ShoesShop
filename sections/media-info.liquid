@@ -1,0 +1,99 @@
+<section class="mediaInfo_sec">
+  <div class="container">
+    <div class="wrap">
+      <div class="mediaInfo_bl">
+        {%- if section.settings.image != blank -%}
+          <div class="mediaInfo_item mediaInfo_item___user1"></div>
+        {%- else -%}
+          <div class="mediaInfo_item mediaInfo_item1"></div>
+        {%- endif -%}
+        {%- if section.settings.image2 != blank -%}
+          <div class="mediaInfo_item mediaInfo_item___user2"></div>
+        {%- else -%}
+          <div class="mediaInfo_item mediaInfo_item2"></div>
+        {%- endif -%}
+        {%- if section.settings.image3 != blank -%}
+          <div class="mediaInfo_item mediaInfo_item___user3"></div>
+        {%- else -%}
+          <div class="mediaInfo_item mediaInfo_item3"></div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .mediaInfo_sec .wrap {
+    margin: 0 -10px;
+  }
+
+  .mediaInfo_bl {
+    display: flex;
+  }
+
+  .mediaInfo_item {
+    width: 33.333%;
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .mediaInfo_item1 {
+    background-image: url("{{ 'mediaInfo1.jpg' | asset_url }}");
+  }
+
+  .mediaInfo_item2 {
+    background-image: url("{{ 'mediaInfo2.jpg' | asset_url }}");
+  }
+
+  .mediaInfo_item3 {
+    background-image: url("{{ 'mediaInfo3.jpg' | asset_url }}");
+  }
+
+  .mediaInfo_item___user1 {
+    background-image: url("{{ section.settings.image | image_url: height: 500 }}");
+  }
+
+  .mediaInfo_item___user2 {
+    background-image: url("{{ section.settings.image2 | image_url: height: 500 }}");
+  }
+
+  .mediaInfo_item___user3 {
+    background-image: url("{{ section.settings.image3 | image_url: height: 500 }}");
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Media Info",
+  "class": "mediaInfo",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "image",
+      "info": "400 x 120px recommended"
+    },
+    {
+      "type": "image_picker",
+      "id": "image2",
+      "label": "image2",
+      "info": "400 x 120px recommended"
+    },
+    {
+      "type": "image_picker",
+      "id": "image3",
+      "label": "image3",
+      "info": "400 x 120px recommended"
+    }
+  ],
+  "presets": [
+    {
+      "name": "media-info"
+    }
+  ],
+  "disabled_on": {
+    "templates": ["404"]
+  }
+}
+{% endschema %}

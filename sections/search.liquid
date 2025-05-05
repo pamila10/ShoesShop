@@ -1,0 +1,67 @@
+<section class="search_sec">
+  <div class="container">
+    <div class="wrap">
+      {% if search.performed %}
+        <div class="search_res">
+          {% for product in search.results %}
+            <div class="productCard">
+              <a href="{{product.url}}">
+                <img
+                  width="300"
+                  height="300"
+                  loading="lazy"
+                  src="{{ product.featured_image | image_url }}"
+                >
+                <h3>{{ product.title }}</h3>
+              </a>
+            </div>
+          {% endfor %}
+          {% else %}
+            <h1>No results found!</h1>
+        </div>
+      {% endif %}
+    </div> 
+  </div>
+</section>
+
+<style>
+  .search {
+    height: 100%;
+  }
+
+  .search_res {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 10px 0;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Search",
+  "class": "search",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#F4F4F4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Search"
+    }
+  ],
+  "disabled_on": {
+    "templates": ["404"]
+  }
+}
+{% endschema %}
