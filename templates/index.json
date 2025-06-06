@@ -15,7 +15,7 @@
         "text": "Members: Free Shipping!",
         "text2": "Save up to 30%",
         "text3": "Get your gear faster!",
-        "background": "#F4F4F4",
+        "background": "#f4f4f4",
         "text_color": "#000000"
       }
     },
@@ -26,7 +26,7 @@
     "more-info": {
       "type": "more-info",
       "settings": {
-        "background": "#F4F4F4",
+        "background": "#f4f4f4",
         "text_color": "#000000",
         "title": "The resolution starter pack",
         "text": "Go for all your fitness goals with a curated collection of new kicks breathable apparel, and more supportive styles"
@@ -35,16 +35,35 @@
     "all-collections": {
       "type": "all-collections",
       "settings": {
-        "background": "#F4F4F4",
+        "background": "#f4f4f4",
         "text_color": "#000000"
       }
     },
     "all-products": {
       "type": "all-products",
       "settings": {
-        "background": "#F4F4F4",
+        "background": "#f4f4f4",
         "text_color": "#000000"
       }
+    },
+    "17492039824385f8f8": {
+      "type": "apps",
+      "blocks": {
+        "hiko_social_login_hiko_block_tb4Vby": {
+          "type": "shopify://apps/hiko-social-login/blocks/hiko-block/3832d7e1-5bcd-4b72-91da-236b57feef8f",
+          "settings": {
+            "login_type": "login",
+            "width": "100%",
+            "mobile": "640px",
+            "padding_top": "0px",
+            "padding_bottom": "0px"
+          }
+        }
+      },
+      "block_order": [
+        "hiko_social_login_hiko_block_tb4Vby"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -52,6 +71,7 @@
     "media-info",
     "more-info",
     "all-collections",
-    "all-products"
+    "all-products",
+    "17492039824385f8f8"
   ]
 }
