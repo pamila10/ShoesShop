@@ -45,25 +45,6 @@
         "background": "#f4f4f4",
         "text_color": "#000000"
       }
-    },
-    "17492039824385f8f8": {
-      "type": "apps",
-      "blocks": {
-        "hiko_social_login_hiko_block_tb4Vby": {
-          "type": "shopify://apps/hiko-social-login/blocks/hiko-block/3832d7e1-5bcd-4b72-91da-236b57feef8f",
-          "settings": {
-            "login_type": "login",
-            "width": "100%",
-            "mobile": "640px",
-            "padding_top": "0px",
-            "padding_bottom": "0px"
-          }
-        }
-      },
-      "block_order": [
-        "hiko_social_login_hiko_block_tb4Vby"
-      ],
-      "settings": {}
     }
   },
   "order": [
@@ -71,7 +52,6 @@
     "media-info",
     "more-info",
     "all-collections",
-    "all-products",
-    "17492039824385f8f8"
+    "all-products"
   ]
 }
