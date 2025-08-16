@@ -32,6 +32,28 @@
         "text": "Go for all your fitness goals with a curated collection of new kicks breathable apparel, and more supportive styles"
       }
     },
+    "marquee_products_J8LVqd": {
+      "type": "marquee-products",
+      "blocks": {
+        "products_k8bcUw": {
+          "type": "products",
+          "settings": {
+            "title": "Product title",
+            "description": "",
+            "price": "Product price",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "products_k8bcUw"
+      ],
+      "name": "marquee-products",
+      "settings": {
+        "background": "#F4F4F4",
+        "text_color": "#000000"
+      }
+    },
     "all-collections": {
       "type": "all-collections",
       "settings": {
@@ -51,6 +73,7 @@
     "banner",
     "media-info",
     "more-info",
+    "marquee_products_J8LVqd",
     "all-collections",
     "all-products"
   ]
