@@ -38,8 +38,9 @@
         "products_k8bcUw": {
           "type": "products",
           "settings": {
-            "title": "Product title",
-            "description": "",
+            "title": "Sneakers1",
+            "description": "<p>Comfortable shoes that match all of life's moves.</p>",
+            "image": "shopify://shop_images/shoes15.jpg",
             "price": "Product price",
             "link": ""
           }
@@ -50,7 +51,7 @@
       ],
       "name": "marquee-products",
       "settings": {
-        "background": "#F4F4F4",
+        "background": "#f4f4f4",
         "text_color": "#000000"
       }
     },
