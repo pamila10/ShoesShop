@@ -44,10 +44,21 @@
             "price": "Product price",
             "link": ""
           }
+        },
+        "products_U7J9ra": {
+          "type": "products",
+          "settings": {
+            "title": "Sneakers2",
+            "description": "<p>Comfortable shoes that match all of life's moves.</p>",
+            "image": "shopify://shop_images/mediaInfo2.jpg",
+            "price": "Product price",
+            "link": ""
+          }
         }
       },
       "block_order": [
-        "products_k8bcUw"
+        "products_k8bcUw",
+        "products_U7J9ra"
       ],
       "name": "marquee-products",
       "settings": {
